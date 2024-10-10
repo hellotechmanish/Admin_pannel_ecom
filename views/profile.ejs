@@ -1,0 +1,212 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Profile</title>
+    <!-- <link rel="stylesheet" href="styles.css"> -->
+
+    <style>
+
+      /* General Styles */
+/* General Styles */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Arial', sans-serif;
+}
+
+body {
+    display: flex;
+    min-height: 100vh;
+    background: linear-gradient(45deg, #f5f7fa, #c3cfe2);
+}
+
+/* Sidebar Styles */
+.sidebar {
+    width: 250px;
+    height: 100vh;
+    background: linear-gradient(45deg, #ff7e5f, #feb47b);
+    padding: 20px;
+    color: white;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    position: fixed;
+    transition: all 0.3s ease-in-out;
+}
+
+.sidebar:hover {
+    width: 270px;
+}
+
+.sidebar .logo {
+    font-size: 24px;
+    font-weight: bold;
+    text-align: center;
+    padding-bottom: 20px;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+.sidebar ul {
+    list-style-type: none;
+    padding: 0;
+}
+
+.sidebar ul li {
+    margin: 20px 0;
+}
+
+.sidebar ul li a {
+    color: white;
+    text-decoration: none;
+    font-size: 18px;
+    position: relative;
+    transition: all 0.3s ease;
+}
+
+.sidebar ul li a::after {
+    content: '';
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    height: 2px;
+    width: 0%;
+    background-color: white;
+    transition: width 0.3s ease;
+}
+
+.sidebar ul li a:hover::after {
+    width: 100%;
+}
+
+.sidebar ul li a:hover {
+    transform: translateX(10px);
+    color: #ffecd2;
+}
+
+/* Main Content Styles */
+.main-content {
+    margin-left: 250px;
+    padding: 40px;
+    flex-grow: 1;
+    transition: all 0.3s ease;
+}
+
+.header {
+    font-size: 36px;
+    font-weight: bold;
+    color: #333;
+    margin-bottom: 20px;
+}
+
+.profile-card {
+    background: white;
+    border-radius: 10px;
+    box-shadow: 0 8px 15px rgba(0, 0, 0, 0.1);
+    padding: 40px;
+    text-align: center;
+    max-width: 500px;
+    margin: 0 auto;
+    position: relative;
+    overflow: hidden;
+    transition: transform 0.4s ease-in-out;
+}
+
+.profile-card:hover {
+    transform: scale(1.05);
+}
+
+.profile-card .profile-pic {
+    border-radius: 50%;
+    width: 150px;
+    height: 150px;
+    object-fit: cover;
+    border: 4px solid #ff7e5f;
+    transition: all 0.4s ease;
+}
+
+.profile-card .profile-pic:hover {
+    transform: rotate(360deg);
+}
+
+.profile-card h2 {
+    font-size: 28px;
+    color: #333;
+    margin: 20px 0;
+}
+
+.profile-card p {
+    color: #777;
+    margin: 10px 0;
+}
+
+.edit-btn {
+    background: linear-gradient(45deg, #43cea2, #185a9d);
+    border: none;
+    padding: 10px 20px;
+    color: white;
+    border-radius: 20px;
+    font-size: 16px;
+    cursor: pointer;
+    transition: background 0.3s ease, transform 0.3s ease;
+}
+
+.edit-btn:hover {
+    background: linear-gradient(45deg, #43cea2, #0d3b66);
+    transform: scale(1.1);
+}
+
+.edit-btn:active {
+    transform: scale(0.9);
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .sidebar {
+        width: 200px;
+    }
+
+    .main-content {
+        margin-left: 200px;
+    }
+
+    .header {
+        font-size: 28px;
+    }
+
+    .profile-card {
+        padding: 30px;
+    }
+}
+
+
+    </style>
+</head>
+<body>
+    <div class="sidebar">
+        <div class="logo">
+            <h2>Admin Panel</h2>
+        </div>
+        <ul>
+            <li><a href="#">Dashboard</a></li>
+            <li><a href="#">Profile</a></li>
+            <li><a href="#">Settings</a></li>
+            <li><a href="#">Logout</a></li>
+        </ul>
+    </div>
+    <div class="main-content">
+        <div class="header">
+            <h1>Profile</h1>
+        </div>
+        <div class="profile-card">
+            <img src="https://via.placeholder.com/150" alt="Profile Picture" class="profile-pic">
+            <h2>user</h2>
+            <p>Email: admin@example.com</p>
+            <p>Role: Administrator</p>
+            <button class="edit-btn">Edit Profile</button>
+        </div>
+    </div>
+</body>
+</html>
