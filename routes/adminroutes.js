@@ -16,7 +16,7 @@ function isAuthenticated(req, res, next) {
 }
 
 
-// Admin  route
+// Admin  route  
 route.get('/',isAuthenticated, (req, res) => {
   const cartdetailsQuery = 'SELECT * FROM cartdetails';
   const OrderDetailsQuery = 'SELECT * FROM OrderDetails';
@@ -44,6 +44,10 @@ route.get('/',isAuthenticated, (req, res) => {
       });
     });
   });
+});
+route.post('/',isAuthenticated, (req, res) => {
+  const product = req.body.productName;
+    console.log(product);
 });
 
 route.get('/profile', (req, res) => {
@@ -179,6 +183,17 @@ route.post('/signup', async (req, res) => {
       });
   });
   
+
+  
+route.get('/logout', (req, res) => {
+    req.session.destroy((err) => {
+        if (err) {
+            return res.status(500).send('Error logging out');
+        }
+        // res.send('Logged out successfully');
+        res.redirect('login');
+    }); 
+});
 
 
 module.exports = route;
