@@ -8,6 +8,7 @@ app.use(session({
     secret: 'helodeepakji',
     resave: false,
     saveUninitialized: true,
+    cookie: { secure: false } 
     // cookie: {
     //     maxAge: 30 * 60 * 1000 // 30 minutes
     //   }
@@ -20,6 +21,7 @@ app.use((req, res, next) => {
 
 
 app.use('/', adminroute);
+app.use('/profile', adminroute);    
 
 // Set the view engine to EJS
 app.set('view engine', 'ejs');
