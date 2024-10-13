@@ -70,7 +70,7 @@ route.get('/profile',isAuthenticated , (req, res) => {
   console.log('Logged-in User ID:', loggedInUserId);
 
   
-  // console.log('Session:', loggedInUserId.userId);
+  console.log('Session:', loggedInUserId.userId);
 
   // this qery for print data when we want data
   const query = 'SELECT * FROM users WHERE id = ?';
