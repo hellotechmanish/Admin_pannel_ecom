@@ -56,12 +56,11 @@ route.post('/', (req, res) => {
     res.redirect('/');
   });
 });
-
-route.get('/profile',isAuthenticated , (req, res) => {
+route.get('/profile', isAuthenticated, (req, res) => {
   // console.log('Session:', req.session); // this is check how many data recive from session
-  
+
   const loggedInUserId = req.session.userId; // Safely access user ID
-  
+
   // Check if userId is available in the session
   if (!loggedInUserId) {
     console.error('User ID not found in session');
@@ -69,25 +68,48 @@ route.get('/profile',isAuthenticated , (req, res) => {
   }
   console.log('Logged-in User ID:', loggedInUserId);
 
-  
   console.log('Session:', loggedInUserId.userId);
-
   // this qery for print data when we want data
   const query = 'SELECT * FROM users WHERE id = ?';
   db.query(query, [loggedInUserId], (err, userresult) => {
-      if (err) {
-          console.error('Error fetching user details:', err);
-          return res.status(500).send('Error retrieving user details');
-      }
-
-      if (userresult.length > 0) {
-          res.render('profile', { userdata: userresult[0] });
-      } else {
-          res.status(404).send('User not found');
-      }
+    if (err) {
+      console.error('Error fetching user details:', err);
+      return res.status(500).send('Error retrieving user details');
+    }
+    if (userresult.length > 0) {
+      res.render('profile', { userdata: userresult[0] });
+    } else {
+      res.status(404).send('User not found');
+    }
   });
 });
+// post route profile page
+route.post('/profile', isAuthenticated, (req, res) => {
+  const { username, email, number } = req.body;
 
+
+  const loggedInUserId = req.session.userId; // Safely access user ID
+
+  // Check if userId is available in the session
+  if (!loggedInUserId) {
+    console.error('User ID not found in session');
+    return res.status(401).send('User not logged in');
+  }
+  console.log('Logged-in User ID:', loggedInUserId);
+
+  // SQL Query to insert product into the product table
+  const getusers = `UPDATE users SET username = ?, email = ?, number = ? WHERE id = ?`;
+db.query(getusers, [username, email, number,loggedInUserId], (err, getusersresult) => {
+  if (err) {
+    console.error('Error inserting user:', err);
+    return res.status(500).send('Error inserting user');
+  }
+  // console.log(getusersresult);
+  res.redirect('/profile');
+
+});
+
+});
 // Login  route
 route.get('/login', (req, res) => {
   // Render the dashboard with all results
@@ -146,51 +168,53 @@ route.post('/login', (req, res) => {
 
 });
 
-route.post('/login', (req, res) => {
-  const { email, password } = req.body;
+// route.post('/login', (req, res) => {
 
-  // Check email in the database
-  const query = 'SELECT * FROM users WHERE email  = ?';
-  db.query(query, [email], (err, results) => {
+//   const { email, password } = req.body;
 
-    if (err) {
-      console.error('Error querying the database:', err);
-      return res.status(500).send('Internal server error'); // Avoid too much detail in error messages
-    }
+//   // Check email in the database
+//   const query = 'SELECT * FROM users WHERE email  = ?';
+//   db.query(query, [email], (err, results) => {
 
-    if (results.length === 0) {
-      // If the email is not found
-      return res.status(401).send('Invalid credentials'); // Generalized message
-    }
+//     if (err) {
+//       console.error('Error querying the database:', err);
+//       return res.status(500).send('Internal server error'); // Avoid too much detail in error messages
+//     }
 
-    // Get the user object from the database query
-    const user = results[0];
+//     if (results.length === 0) {
+//       // If the email is not found
+//       return res.status(401).send('Invalid credentials'); // Generalized message
+//     }
 
-    // Compare the provided password with the stored hashed password
-    bcrypt.compare(password, user.password, (err, isMatch) => {
+//     // Get the user object from the database query
+//     const user = results[0];
 
-      if (err) {
-        console.error('Error comparing passwords:', err);
-        return res.status(500).send('Internal server error');
-      }
+//     // Compare the provided password with the stored hashed password
+//     bcrypt.compare(password, user.password, (err, isMatch) => {
 
-      if (!isMatch) {
-        return res.status(401).send('Invalid credentials'); // Generalized message
-      }
+//       if (err) {
+//         console.error('Error comparing passwords:', err);
+//         return res.status(500).send('Internal server error');
+//       }
 
-      // Store user session details
-      req.session.userId = user.id;
+//       if (!isMatch) {
+//         return res.status(401).send('Invalid credentials'); // Generalized message
+//       }
 
-      // Redirect to home page
-      res.redirect('/');
-    });
-  });
-});
+//       // Store user session details
+//       req.session.userId = user.id;
+
+//       // Redirect to home page
+//       res.redirect('/');
+//     });
+//   });
+// });
 
 
 
 
-// Login  route
+
+// signup  route
 route.get('/signup', (req, res) => {
   // Render the dashboard with all results
   res.render('signup');

@@ -185,6 +185,9 @@ body {
     </style>
 </head>
 <body>
+
+    <!-- <%- include('nav') %>  -->
+
     <div class="sidebar">
         <div class="logo">
             <h2>Admin Panel</h2>
@@ -193,7 +196,7 @@ body {
             <li><a href="#">Dashboard</a></li>
             <li><a href="#">Profile</a></li>
             <li><a href="#">Settings</a></li>
-            <li><a href="#">Logout</a></li>
+            <li><a href="/logout">Logout</a></li>
         </ul>
     </div>
     <div class="main-content">
@@ -207,6 +210,15 @@ body {
             <p>Role: Administrator</p>
             <button class="edit-btn">Edit Profile</button>
         </div>
+    </div>
+    <div class="main-content">
+        <div class="header">
+            <h1>update</h1>
+        </div>
+        
+        <div class="profile-card">
+            <%- include('update') %>    
+           </div>
     </div>
 </body>
 </html>
