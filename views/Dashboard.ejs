@@ -425,226 +425,238 @@
 
 <body>
 
-    <%- include('nav') %> 
+    <%- include('nav') %>
 
-    <div class="container">
-        <aside class="sidebar">
-            <h2>Menu</h2>
-            <a href="">Dashboard</a>
-            <a href="#">User Management</a>
-            <a href="#">Orders</a>
-            <a href="#">Cart</a>
-            <a href="#">Settings</a>
-        </aside>
-        <main class="main">
-            <div class="summary-row">
-                <div class="summary-box total-orders">
-                    Total Orders: <span id="totalOrders">0</span>
-                </div>
-                <div class="summary-box pending-orders">
-                    Pending Orders: <span id="pendingOrders">0</span>
-                </div>
-                <div class="summary-box delivered-orders">
-                    Delivered Orders: <span id="deliveredOrders"> </span>
-                </div>
-                <div class="summary-box upcoming-orders">
-                    Product Count: <span id="upcomingOrders">0</span>
-                </div>
-            </div>
-            <div class="card">
-                <h3> </h3>
-                <table id="cartTable">
-                    <thead>
-                        <tr>
-                            <th>Product Name</th>
-                            <th>Quantity</th>
-                            <th>Price</th>
-                            <th>Total</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <% cartDetails.forEach(cart=> { %>
-                            <tr>
-                                <td>
-                                    <%= cart.ProductName %>
-                                </td>
-                                <td>
-                                    <%= cart.Quantity %>
-                                </td>
-                                <td>
-                                    <%= cart.Price %>
-                                </td>
-                                <td>
-                                    <%= cart.Total %>
-                                </td>
-                            </tr>
-                            <% }); %>
-
-                    </tbody>
-                </table>
-            </div>
-            <div class="card">
-                <h3>Order Details</h3>
-                <table id="orderTable">
-                    <thead>
-                        <tr>
-                            <th>Order ID</th>
-                            <th>Customer Name</th>
-                            <th>Total Amount</th>
-                            <th>Order Date</th>
-                            <th>Shipping Address</th>
-                            <th>Status</th>
-                        </tr>
-                    </thead>
-
-
-                    <tbody>
-
-                        <% OrderDetails.forEach(order=> { %>
-                            <tr>
-                                <td>
-                                    <%= order.OrderID %>
-                                </td>
-                                <td>
-                                    <%= order.CustomerName %>
-                                </td>
-                                <td>
-                                    <%= order.TotalAmount %>
-                                </td>
-                                <td>
-                                    <%= order.OrderDate.toISOString().split('T')[0] %>
-                                </td> <!-- Format Order Date -->
-                                <td>
-                                    <%= order.ShippingAddress %>
-                                </td>
-                                <td>
-                                    <%= order.Status %>
-                                </td>
-                            </tr>
-                            <% }); %>
-
-                    </tbody>
-                </table>
-            </div>
-
-            <div class="card">
-                <div class="main_form">
-                    <!-- Left Section -->
-                    <div class="left">
-                        <h3>Add Product</h3>
-                        <form id="productForm" action="" method="post">
-                            <!-- Product Name -->
-                            <div class="form-group">
-                                <label for="productName">Product Name:</label>
-                                <input type="text" id="productName" name="productName" placeholder="Enter product name"
-                                    required>
-                            </div>
-
-                            <!-- Price -->
-                            <div class="form-group">
-                                <label for="price">Price:</label>
-                                <input type="number" id="price" name="price" placeholder="Enter price" required>
-                            </div>
-
-                            <!-- Product Type -->
-                            <div class="form-group">
-                                <label for="productType">Product Type:</label>
-                                <select id="productType" name="productType" name="productType" required>
-                                    <option value="physical">Physical</option>
-                                    <option value="digital">Digital</option>
-                                </select>
-                            </div>
-
-                            <!-- Quantity -->
-                            <div class="form-group">
-                                <label for="quantity">Quantity:</label>
-                                <input type="number" id="quantity" name="quantity" placeholder="Enter quantity"
-                                    required>
-                            </div>
-
-                            <!-- Category -->
-                            <div class="form-group">
-                                <label for="category">Category:</label>
-                                <select id="category" name="category" required>
-                                    <option value="electronics">Electronics</option>
-                                    <option value="fashion">Fashion</option>
-                                    <option value="home">Home</option>
-                                    <option value="beauty">Beauty</option>
-                                    <option value="sports">Sports</option>
-                                </select>
-                            </div>
-
-                            <!-- Product Description -->
-                            <div class="form-group">
-                                <label for="description">Product Description:</label>
-                                <textarea id="description" name="description" placeholder="Enter product description"
-                                    rows="4" required></textarea>
-                            </div>
-
-                            <!-- Submit Button -->
-                            <div class="form-group">
-                                <button type="submit">Add Product</button>
-                            </div>
-                        </form>
+        <div class="container">
+            <aside class="sidebar">
+                <h2>Menu</h2>
+                <a href="">Dashboard</a>
+                <a href="#">User Management</a>
+                <a href="#">Orders</a>
+                <a href="#">Cart</a>
+                <a href="#">Settings</a>
+            </aside>
+            <main class="main">
+                <div class="summary-row">
+                    <div class="summary-box total-orders">
+                        Total Orders: <span id="totalOrders">0</span>
                     </div>
+                    <div class="summary-box pending-orders">
+                        Pending Orders: <span id="pendingOrders">0</span>
+                    </div>
+                    <div class="summary-box delivered-orders">
+                        Delivered Orders: <span id="deliveredOrders"> </span>
+                    </div>
+                    <div class="summary-box upcoming-orders">
+                        Product Count: <span id="upcomingOrders">0</span>
+                    </div>
+                </div>
+                <div class="card" >
+                    <h3>All product</h3>
+                    <!-- <input type="button" value="add" style="margin-right: 20px;"> -->
+                    <table id="cartTable">
+                        <thead>
+                            <tr>
+                                <th>Product Name</th>
+                                <th>Quantity</th>
+                                <th>product Type</th>
+                                <th>Produc category</th>
+                                <th>Price</th>
+                                <th>Action</th> <!-- New column for the button -->
 
-                    <!-- Right Section -->
-                    <div class="right">
-                        <h3>Delivered Orders</h3>
-                        <table>
-                            <thead>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <% allproduct.forEach(allproduct=> { %>
                                 <tr>
-                                    <th>Order ID</th>
-                                    <th>Product</th>
-                                    <th>Quantity</th>
-                                    <th>Total Price</th>
-                                    <th>Date</th>
+                                    <td>
+                                        <%= allproduct.product_name %>
+                                    </td>
+                                    <td>
+                                        <%= allproduct.quantity %>
+                                    </td>
+                                    <td>
+                                        <%= allproduct.product_type %>
+                                    </td>
+                                    <td>
+                                        <%= allproduct.category %>
+                                    </td>
+                                    <td>
+                                        <%= allproduct.price %>
+                                    </td>
+                                    <td>
+                                        <!-- <%= allproduct.price %> -->
+                                        <input type="button" value="Delete" style="background-color: red; height: 30px; width: 80px; color: #ddd; ">
+                                    </td>
                                 </tr>
-                            </thead>
-                            <tbody>
-                                <% orderdelivered.forEach(delivered=> { %>
-                                    <tr>
-                                        <td>
-                                            <%= delivered.OrderID %>
-                                        </td>
-                                        <td>
-                                            <%= delivered.CustomerName %>
-                                        </td>
-                                        <td>
-                                            <%= delivered.TotalAmount %>
-                                        </td>
-                                        <td>
-                                            <%= delivered.OrderDate.toISOString().split('T')[0] %>
-                                        </td> <!-- Format Order Date -->
-                                        <td>
-                                            <%= delivered.ShippingAddress %>
-                                        </td>
+                                <% }); %>
 
-                                    </tr>
-                                    <% }); %>
-                            </tbody>
-                        </table>
-                    </div>
+                        </tbody>
+                    </table>
+                </div>
+                <div class="card">
+                    <h3>Order Details</h3>
+                    <table id="orderTable">
+                        <thead>
+                            <tr>
+                                <th>Order ID</th>
+                                <th>Customer Name</th>
+                                <th>Total Amount</th>
+                                <th>Order Date</th>
+                                <th>Shipping Address</th>
+                                <th>Status</th>
+                            </tr>
+                        </thead>
+
+
+                        <tbody>
+
+                            <% OrderDetails.forEach(order=> { %>
+                                <tr>
+                                    <td>
+                                        <%= order.OrderID %>
+                                    </td>
+                                    <td>
+                                        <%= order.CustomerName %>
+                                    </td>
+                                    <td>
+                                        <%= order.TotalAmount %>
+                                    </td>
+                                    <td>
+                                        <%= order.OrderDate.toISOString().split('T')[0] %>
+                                    </td> <!-- Format Order Date -->
+                                    <td>
+                                        <%= order.ShippingAddress %>
+                                    </td>
+                                    <td>
+                                        <%= order.Status %>
+                                    </td>
+                                </tr>
+                                <% }); %>
+
+                        </tbody>
+                    </table>
                 </div>
 
+                <div class="card">
+                    <div class="main_form">
+                        <!-- Left Section -->
+                        <div class="left">
+                            <h3>Add Product</h3>
+                            <form id="productForm" action="" method="post">
+                                <!-- Product Name -->
+                                <div class="form-group">
+                                    <label for="productName">Product Name:</label>
+                                    <input type="text" id="productName" name="productName"
+                                        placeholder="Enter product name" required>
+                                </div>
+
+                                <!-- Quantity -->
+                                <div class="form-group">
+                                    <label for="quantity">Quantity:</label>
+                                    <input type="number" id="quantity" name="quantity" placeholder="Enter quantity"
+                                        required>
+                                </div>
+
+                                <!-- Product Type -->
+                                <div class="form-group">
+                                    <label for="productType">Product Type:</label>
+                                    <select id="productType" name="productType" name="productType" required>
+                                        <option value="physical">Physical</option>
+                                        <option value="digital">Digital</option>
+                                    </select>
+                                </div>
 
 
-            </div>
-        </main>
-    </div>
-    <script>
-        function toggleSidebar() {
-            document.querySelector('.sidebar').classList.toggle('visible');
-        }
-        function logout() {
-            // Implement logout functionality
-            alert('Logout clicked');
-        }
-        function createUser() {
-            // Implement create user functionality
-            alert('Create User clicked');
-        }
-    </script>
+                                <!-- Category -->
+                                <div class="form-group">
+                                    <label for="category">Category:</label>
+                                    <select id="category" name="category" required>
+                                        <option value="electronics">Electronics</option>
+                                        <option value="fashion">Fashion</option>
+                                        <option value="home">Home</option>
+                                        <option value="beauty">Beauty</option>
+                                        <option value="sports">Sports</option>
+                                    </select>
+                                </div>
+
+                                <!-- Price -->
+                                <div class="form-group">
+                                    <label for="price">Price:</label>
+                                    <input type="number" id="price" name="price" placeholder="Enter price" required>
+                                </div>
+
+                                <!-- Product Description -->
+                                <div class="form-group">
+                                    <label for="description">Product Description:</label>
+                                    <textarea id="description" name="description"
+                                        placeholder="Enter product description" rows="4" required></textarea>
+                                </div>
+
+                                <!-- Submit Button -->
+                                <div class="form-group">
+                                    <button type="submit">Add Product</button>
+                                </div>
+                            </form>
+                        </div>
+
+                        <!-- Right Section -->
+                        <div class="right">
+                            <h3>Delivered Orders</h3>
+                            <table>
+                                <thead>
+                                    <tr>
+                                        <th>Order ID</th>
+                                        <th>Product</th>
+                                        <th>Quantity</th>
+                                        <th>Total Price</th>
+                                        <th>Date</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <% orderdelivered.forEach(delivered=> { %>
+                                        <tr>
+                                            <td>
+                                                <%= delivered.OrderID %>
+                                            </td>
+                                            <td>
+                                                <%= delivered.CustomerName %>
+                                            </td>
+                                            <td>
+                                                <%= delivered.TotalAmount %>
+                                            </td>
+                                            <td>
+                                                <%= delivered.OrderDate.toISOString().split('T')[0] %>
+                                            </td> <!-- Format Order Date -->
+                                            <td>
+                                                <%= delivered.ShippingAddress %>
+                                            </td>
+
+                                        </tr>
+                                        <% }); %>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+
+
+
+                </div>
+            </main>
+        </div>
+        <script>
+            function toggleSidebar() {
+                document.querySelector('.sidebar').classList.toggle('visible');
+            }
+            function logout() {
+                // Implement logout functionality
+                alert('Logout clicked');
+            }
+            function createUser() {
+                // Implement create user functionality
+                alert('Create User clicked');
+            }
+        </script>
 </body>
 
 </html>

@@ -10,7 +10,7 @@
 <body>
     <div class="container mt-5">
         <!-- <h2 class="text-center mb-4">User Registration</h2> -->
-        <form method="post" action="/profile">
+        <form  action="/profile/update" method="post" >
             
             <div class="form-group">
                 <label for="username">User Name</label>
@@ -23,6 +23,14 @@
             <div class="form-group">
                 <label for="number">Number</label>
                 <input type="tel" name="number" class="form-control" id="number" placeholder="<%= userdata.number %>">
+            </div>
+            <div class="form-group">
+                <label for="number">Project</label>
+                <input type="tel" name="project" class="form-control" id="number" placeholder="<%= userdata.project %>">
+            </div>
+            <div class="form-group">
+                <label for="number">Address</label>
+                <input type="tel" name="address" class="form-control" id="number" placeholder="<%= userdata.address %>">
             </div>
             <button type="submit" class="btn btn-primary btn-block">update</button>
         </form>

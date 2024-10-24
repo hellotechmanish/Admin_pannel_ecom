@@ -19,12 +19,12 @@ function isAuthenticated(req, res, next) {
 
 // Admin  route  
 route.get('/', isAuthenticated, (req, res) => {
-  const cartdetailsQuery = 'SELECT * FROM cartdetails';
+  const allproductQuery = 'SELECT * FROM allproduct';
   const OrderDetailsQuery = 'SELECT * FROM OrderDetails';
   const orderdeliveredQuery = 'SELECT * FROM orderdetails WHERE status = "Delivered"';
 
   // Execute the query to fetch data from cartdetails
-  db.query(cartdetailsQuery, (err, cartDetailsresult) => {
+  db.query(allproductQuery, (err, allproductresult) => {
     if (err) {
       console.error('Error fetching cart details:', err);
       return res.status(500).send('Error retrieving cart details');
@@ -41,7 +41,7 @@ route.get('/', isAuthenticated, (req, res) => {
         }
 
         // Render the 'Dashboard' view and pass the cart details data
-        res.render('Dashboard', { cartDetails: cartDetailsresult, OrderDetails: OrderDetailsresult, orderdelivered: orderdeliveredresult }); // Ensure 'Dashboard' exists in views/admin
+        res.render('Dashboard', { allproduct: allproductresult, OrderDetails: OrderDetailsresult, orderdelivered: orderdeliveredresult }); // Ensure 'Dashboard' exists in views/admin
       });
     });
   });
@@ -56,60 +56,7 @@ route.post('/', (req, res) => {
     res.redirect('/');
   });
 });
-route.get('/profile', isAuthenticated, (req, res) => {
-  // console.log('Session:', req.session); // this is check how many data recive from session
 
-  const loggedInUserId = req.session.userId; // Safely access user ID
-
-  // Check if userId is available in the session
-  if (!loggedInUserId) {
-    console.error('User ID not found in session');
-    return res.status(401).send('User not logged in');
-  }
-  console.log('Logged-in User ID:', loggedInUserId);
-
-  console.log('Session:', loggedInUserId.userId);
-  // this qery for print data when we want data
-  const query = 'SELECT * FROM users WHERE id = ?';
-  db.query(query, [loggedInUserId], (err, userresult) => {
-    if (err) {
-      console.error('Error fetching user details:', err);
-      return res.status(500).send('Error retrieving user details');
-    }
-    if (userresult.length > 0) {
-      res.render('profile', { userdata: userresult[0] });
-    } else {
-      res.status(404).send('User not found');
-    }
-  });
-});
-// post route profile page
-route.post('/profile', isAuthenticated, (req, res) => {
-  const { username, email, number } = req.body;
-
-
-  const loggedInUserId = req.session.userId; // Safely access user ID
-
-  // Check if userId is available in the session
-  if (!loggedInUserId) {
-    console.error('User ID not found in session');
-    return res.status(401).send('User not logged in');
-  }
-  console.log('Logged-in User ID:', loggedInUserId);
-
-  // SQL Query to insert product into the product table
-  const getusers = `UPDATE users SET username = ?, email = ?, number = ? WHERE id = ?`;
-db.query(getusers, [username, email, number,loggedInUserId], (err, getusersresult) => {
-  if (err) {
-    console.error('Error inserting user:', err);
-    return res.status(500).send('Error inserting user');
-  }
-  // console.log(getusersresult);
-  res.redirect('/profile');
-
-});
-
-});
 // Login  route
 route.get('/login', (req, res) => {
   // Render the dashboard with all results
@@ -239,7 +186,6 @@ route.post('/signup', async (req, res) => {
     res.redirect('login')
   });
 });
-
 
 
 route.get('/logout', (req, res) => {

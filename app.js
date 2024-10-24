@@ -1,7 +1,9 @@
 const express = require('express');
 const app = express();
 const adminroute = require("./routes/adminroutes");
+const profileroute = require("./routes/profileroutes");
 const path = require('path');
+
 
 const session = require('express-session');
 app.use(session({
@@ -19,9 +21,12 @@ app.use((req, res, next) => {
     next();
 });
 
+app.use(express.urlencoded({ extended: true })); // Parse URL-encoded bodies
+app.use(express.json()); // Parse JSON bodies if necessary
+
 
 app.use('/', adminroute);
-app.use('/profile', adminroute);    
+app.use('/profile', profileroute);    
 
 // Set the view engine to EJS
 app.set('view engine', 'ejs');
