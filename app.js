@@ -16,6 +16,9 @@ app.use(session({
     //   }
 }))
 
+app.use(express.static('public')); // 'public' folder mein static files rakhein
+
+
 app.use((req, res, next) => {
     res.locals.authenticated = req.session.userId ? true : false;
     next();
